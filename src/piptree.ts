@@ -10,11 +10,7 @@ import {BTON, ISPOW2, NTOP, PTON} from './util';
  * @param rpf root prefix
  * @returns nature
  */
-export function piptree_find_nature(
-  p: boolean[],
-  pf: number[],
-  rpf: number
-): boolean {
+export function piptree_find_nature(p: boolean[], pf: number[], rpf: number): boolean {
   const n: bigint = PTON(p);
   const iter_res: bigint = prefix_iter(n, pf.concat(rpf + 1));
   if ((iter_res & 1n) === 0n) return true;

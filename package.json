@@ -19,7 +19,8 @@
     "posttest": "npm run lint"
   },
   "keywords": [
-    "collatz"
+    "collatz",
+    "math"
   ],
   "author": "erhant",
   "license": "ISC",
