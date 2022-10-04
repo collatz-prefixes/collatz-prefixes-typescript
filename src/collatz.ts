@@ -83,57 +83,12 @@ export function collatz_ECF(n: bigint): number[] {
  * @returns number
  */
 export function collatz_ECF_to_n(ecf: number[]): bigint {
-  return collatz_RECF_to_n(collatz_ECF_to_RECF(ecf));
-}
-
-/**
- * Find the RECF (Reduced ECF) of a number.
- * @param n number
- * @returns RECF
- */
-export function collatz_RECF(n: bigint): number[] {
-  let twos = 0;
-  const ans: number[] = [];
-  while (n > 1n) {
-    if ((n & 1n) === 0n) {
-      twos++;
-      n >>= 1n;
-    } else {
-      ans.push(twos);
-      twos = 0;
-      n = 3n * n + 1n;
-    }
-  }
-  ans.push(twos);
-  return ans;
-}
-
-/**
- * Compute a number from it's RECF.
- * @param recf RECF
- * @returns number
- */
-export function collatz_RECF_to_n(recf: number[]): bigint {
-  let ans: bigint = 1n << BigInt(recf.pop()!);
-  recf.reverse();
-  recf.forEach(p => {
+  let ans = 1n;
+  for (let i = ecf.length - 1; i > 0; --i) {
+    ans = ans << BigInt(ecf[i] - ecf[i - 1]);
     ans = (ans - 1n) / 3n;
-    ans <<= BigInt(p);
-  });
-  return ans;
-}
-
-/**
- * Convert the ECF to RECF
- * ECF makes up the exponents in ICF, but we require RECF to compute the number, thus we need this conversion.
- * @param ecf ECF
- * @returns RECF
- */
-export function collatz_ECF_to_RECF(ecf: number[]): number[] {
-  const ans: number[] = [ecf[0]];
-  for (let i = 1; i < ecf.length; i++) {
-    ans.push(ecf[i] - ecf[i - 1]);
   }
+  ans = ans << BigInt(ecf[0]);
   return ans;
 }
 
