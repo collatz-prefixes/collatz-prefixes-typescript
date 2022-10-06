@@ -12,8 +12,6 @@ import {iterative_path_extension, iterative_prefix} from '../src/iterative';
 const n = BigInt(Math.floor(Math.random() * 10000));
 const m = BigInt(Math.floor(Math.random() * 10000));
 
-console.log(`Using n: ${n} and m: ${m}\n`);
-
 test('Utility', t => {
   t.is(6n, BTON([true, true, false]));
   t.deepEqual([true, true, false], NTOB(6n));
