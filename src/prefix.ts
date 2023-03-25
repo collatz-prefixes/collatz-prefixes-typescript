@@ -71,9 +71,6 @@ export function prefix_map_to_num(pf: number[]): bigint {
  * Generate possible prefixes that appear for paths up to the given length.
  *
  * In other words, prefix_generate(length) = all the prefixes that appear in PIPTree(length)
- * n: 1 -> [[0]]
- * n: 2 -> [[0], [1], [0, 1]]
- * n: 3 -> [[0], [1], [0, 1], [2], [0, 2], [1, 2], [0, 1, 2]]
  *
  * @param l maximum length of a prefix array
  * @returns list of prefixes
