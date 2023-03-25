@@ -16,8 +16,6 @@
     "README.md"
   ],
   "scripts": {
-    "prestart": "yarn compile",
-    "start": "node build/src/index.js",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
