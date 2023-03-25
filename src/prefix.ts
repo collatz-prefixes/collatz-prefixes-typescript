@@ -1,4 +1,3 @@
-import {assert} from 'console';
 import {collatz_ECF} from './collatz';
 
 /**
@@ -45,7 +44,6 @@ export function prefix_iter(n: bigint, pf: number[]): bigint {
   if (pf.length === 0) return n;
   n = n / 2n ** BigInt(pf[0]);
   for (let i = 1; i < pf.length; ++i) {
-    assert((n & 1n) === 1n);
     n = 3n * n + 1n;
     n = n / 2n ** BigInt(pf[i] - pf[i - 1]);
   }

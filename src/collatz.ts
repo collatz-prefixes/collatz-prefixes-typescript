@@ -56,7 +56,7 @@ export function collatz_reduced_sequence(n: bigint): bigint[] {
 }
 
 /**
- * Find ECF (Exponential Canonical Form) of a number.
+ * Find **ECF** (Exponential Canonical Form) of a number.
  * @param n number
  * @returns ECF
  */
@@ -93,7 +93,7 @@ export function collatz_ECF_to_n(ecf: number[]): bigint {
 }
 
 /**
- * Find ICF (Inverse Canonical Form) of a number.
+ * Find **ICF** (Inverse Canonical Form) of a number.
  * @param n number
  * @returns ICF
  */

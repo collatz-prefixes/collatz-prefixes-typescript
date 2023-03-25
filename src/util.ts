@@ -64,7 +64,7 @@ export function FLIP(b: boolean[]): boolean[] {
 /**
  * Find if a given number is a power of two
  * @param n number
- * @returns true if number is a power of two
+ * @returns `true` if number is a power of two
  */
 export function ISPOW2(n: bigint): boolean {
   return n !== 0n && !(n & (n - 1n));

@@ -1,7 +1,6 @@
 import {prefix_add, prefix_iter} from './prefix';
 import {NTOP} from './util';
 
-// overflows for numbers like 25
 export function iterative_path_extension(n: bigint, prefix_finder: (p: boolean[]) => number[]): number[] {
   const p: boolean[] = NTOP(n);
   let pf: number[] = prefix_finder(p);

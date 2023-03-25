@@ -1,4 +1,3 @@
-import {assert} from 'console';
 import {prefix_iter} from './prefix';
 import {BTON, ISPOW2, NTOP, PTON} from './util';
 
@@ -20,7 +19,7 @@ export function piptree_find_nature(p: boolean[], pf: number[], rpf: number): bo
 /**
  * Finds the path from root to the node indexed by p in PIPTree, with the path length of the root node being equal to |p|.
  *
- * It starts from the target, and in a loop either does m/2 or (m-1)/2 until it reaches 1.
+ * It starts from the target, and in a loop either does `m/2` or `(m-1)/2` until it reaches 1.
  * This gives the path from that number to root, so we reverse that to obtain the road from path to target.
  *
  * NOTE: There could be a faster way to do this by just looking at the path. The number of 0s gives you the level. The direction can be read from the binary representation, [0, 1, 1] is like [R],
@@ -46,7 +45,7 @@ export function piptree_get_root_directions(p: boolean[]): boolean[] {
 }
 
 /**
- * Finds the prefix of a number using PIPTree properties. This is basically the resulting algorithm of this whole work.
+ * Finds the prefix of a number using PIPTree properties.
  * @param input an integer or a path
  * @returns prefix
  */
@@ -76,8 +75,10 @@ export function piptree_prefix_find(input: bigint | boolean[]): number[] {
 
   // calculate the root number
   const r: bigint = 1n << BigInt(p.length - 1);
+
   // calculate the root prefix
   const rpf: number = p.length - 1;
+
   // calculate the root path [0, 0, ..., 0, 1]
   let rp: boolean[] = [...p];
   rp = rp.map(() => false);
@@ -87,14 +88,19 @@ export function piptree_prefix_find(input: bigint | boolean[]): number[] {
   let cur_n: bigint = r;
   let cur_p: boolean[] = JSON.parse(JSON.stringify(rp));
   let cur_pf: number[] = [rpf];
+
   dir.forEach(d => {
     // find nature of current node
     const nat: boolean = piptree_find_nature(cur_p, cur_pf, rpf);
+
     // minus 1 everything in the prefix
     cur_pf = cur_pf.map(x => x - 1);
+
     if (d === false) {
       // if GOOD and LEFT, append root prefix
-      if (nat === true) cur_pf.push(rpf);
+      if (nat === true) {
+        cur_pf.push(rpf);
+      }
       // div 2 and plus root
       cur_n = (cur_n >> 1n) + r;
       // go to the left child
@@ -102,7 +108,9 @@ export function piptree_prefix_find(input: bigint | boolean[]): number[] {
       cur_p = cur_p.slice(1);
     } else {
       // if BAD and RIGHT, append root prefix
-      if (nat === false) cur_pf.push(rpf);
+      if (nat === false) {
+        cur_pf.push(rpf);
+      }
       // div 2
       cur_n = cur_n >> 1n;
       // go to the right child
@@ -111,6 +119,5 @@ export function piptree_prefix_find(input: bigint | boolean[]): number[] {
     }
   });
 
-  assert(n === cur_n);
   return cur_pf;
 }

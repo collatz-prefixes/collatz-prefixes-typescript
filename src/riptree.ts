@@ -26,9 +26,9 @@ export function path_generate(len: number): boolean[][] {
 }
 
 /**
- * Finds the next number that resides at the path of n.
+ * Finds the next number that resides at the path of `n`.
  *
- * The path is also given, as n can be in different paths (see path extension)
+ * The path is also given, as `n` can be in different paths (see path extension)
 
  * @param n number
  * @param p path
