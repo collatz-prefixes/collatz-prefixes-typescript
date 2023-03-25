@@ -1,6 +1,6 @@
 {
   "name": "collatz-prefixes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript implementation of Collatz Prefixes",
   "repository": "https://github.com/collatz-prefixes/collatz-prefixes-typescript.git",
   "homepage": "https://github.com/collatz-prefixes/collatz-prefixes-typescript#readme",
@@ -8,30 +8,8 @@
   "engines": {
     "node": ">=10.4.0"
   },
-  "exports": {
-    "types": "./dist/src/index.d.ts",
-    "import": "./dist/src/index.mjs",
-    "require": "./dist/src/index.cjs",
-    "default": "./dist/src/index.mjs"
-  },
-  "targets": {
-    "cjs": {
-      "context": "node",
-      "outputFormat": "commonjs",
-      "isLibrary": true,
-      "engines": {
-        "node": ">=18"
-      }
-    },
-    "mjs": {
-      "context": "node",
-      "outputFormat": "esmodule",
-      "isLibrary": true,
-      "engines": {
-        "node": ">=18"
-      }
-    }
-  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "files": [
     "dist/src",
     "LICENSE",
@@ -61,7 +39,6 @@
     "@types/jest": "^29.5.0",
     "@types/node": "^14.11.2",
     "babel-jest": "^29.5.0",
-    "collatz-prefixes": "^0.1.0",
     "gts": "^3.1.1",
     "jest": "^29.5.0",
     "prettier": "^2.3.2",
