@@ -2,30 +2,6 @@ import {prefixFind} from './prefix';
 import {ISPOW2, PTON, NTOP} from './util';
 
 /**
- * Generate possible paths up to the given length (inclusive)
- * @param len length of the path
- * @returns list of paths
- */
-export function pathGenerate(len: number): boolean[][] {
-  if (len !== 1) {
-    const a: boolean[][] = pathGenerate(len - 1);
-    for (let i = 0; i < a.length; ++i) {
-      if (a[i].length === len - 1) {
-        const x: boolean[] = JSON.parse(JSON.stringify(a[i]));
-        const y: boolean[] = JSON.parse(JSON.stringify(a[i]));
-        x.push(false);
-        y.push(true);
-        a.push(x);
-        a.push(y);
-      }
-    }
-    return a;
-  } else {
-    return [[false], [true]];
-  }
-}
-
-/**
  * Finds the next number that resides at the path of `n`.
  *
  * The path is also given, as `n` can be in different paths (see path extension)
@@ -62,7 +38,7 @@ export function riptreePrefixFind(input: bigint | boolean[]): number[] {
       ans++;
     }
     return [ans];
+  } else {
+    return prefixFind(n, riptreeNextInPath(n, p));
   }
-
-  return prefixFind(n, riptreeNextInPath(n, p));
 }

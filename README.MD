@@ -25,4 +25,8 @@ import * from 'collatz-prefixes'
 
 ## Testing
 
-Clone the repository, and then `yarn test`.
+You can run tests via:
+
+```sh
+yarn test
+```

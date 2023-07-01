@@ -4,11 +4,9 @@ import {NTOP} from './util';
 export function iterativePathExtension(n: bigint, prefix_finder: (p: boolean[]) => number[]): number[] {
   const p: boolean[] = NTOP(n);
   let pf: number[] = prefix_finder(p);
-  let x: bigint = prefixIterate(n, pf);
-  while (x !== 1n) {
+  while (prefixIterate(n, pf) !== 1n) {
     p.push(true);
     pf = prefix_finder(p);
-    x = prefixIterate(n, pf);
   }
   return pf;
 }

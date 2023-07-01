@@ -12,8 +12,7 @@ import {BTON, ISPOW2, NTOP, PTON} from './util';
 export function piptreeFindNature(p: boolean[], pf: number[], rpf: number): boolean {
   const n: bigint = PTON(p);
   const iter_res: bigint = prefixIterate(n, pf.concat(rpf + 1));
-  if ((iter_res & 1n) === 0n) return true;
-  else return false;
+  return (iter_res & 1n) === 0n;
 }
 
 /**
@@ -73,15 +72,14 @@ export function piptreePrefixFind(input: bigint | boolean[]): number[] {
   // find directions from root to p
   const dir: boolean[] = piptreeGetRootDirections(p);
 
-  // calculate the root number
-  const r: bigint = 1n << BigInt(p.length - 1);
-
   // calculate the root prefix
   const rpf: number = p.length - 1;
 
+  // calculate the root number
+  const r: bigint = 1n << BigInt(rpf);
+
   // calculate the root path [0, 0, ..., 0, 1]
-  let rp: boolean[] = [...p];
-  rp = rp.map(() => false);
+  const rp = Array.from({length: p.length}).fill(false);
   rp[rp.length - 1] = true;
 
   // start from the root and work your way to the target
@@ -96,25 +94,29 @@ export function piptreePrefixFind(input: bigint | boolean[]): number[] {
     // minus 1 everything in the prefix
     cur_pf = cur_pf.map(x => x - 1);
 
-    if (d === false) {
-      // if GOOD and LEFT, append root prefix
-      if (nat === true) {
-        cur_pf.push(rpf);
-      }
-      // div 2 and plus root
-      cur_n = (cur_n >> 1n) + r;
-      // go to the left child
-      cur_p.push(false);
-      cur_p = cur_p.slice(1);
-    } else {
+    if (d) {
       // if BAD and RIGHT, append root prefix
       if (nat === false) {
         cur_pf.push(rpf);
       }
+
       // div 2
       cur_n = cur_n >> 1n;
+
       // go to the right child
       cur_p.push(true);
+      cur_p = cur_p.slice(1);
+    } else {
+      // if GOOD and LEFT, append root prefix
+      if (nat === true) {
+        cur_pf.push(rpf);
+      }
+
+      // div 2 and plus root
+      cur_n = (cur_n >> 1n) + r;
+
+      // go to the left child
+      cur_p.push(false);
       cur_p = cur_p.slice(1);
     }
   });

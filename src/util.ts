@@ -67,7 +67,11 @@ export function FLIP(b: boolean[]): boolean[] {
  * @returns `true` if number is a power of two
  */
 export function ISPOW2(n: bigint): boolean {
-  return n !== 0n && !(n & (n - 1n));
+  if (n === 0n) {
+    return true;
+  } else {
+    return (n & (n - 1n)) === 0n;
+  }
 }
 
 /**

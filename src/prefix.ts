@@ -61,26 +61,6 @@ export function prefixMapFromNum(n: bigint): number[] {
   return ans;
 }
 
-/**
- * Generate possible prefixes that appear for paths up to the given length.
- *
- * In other words, prefix_generate(length) = all the prefixes that appear in PIPTree(length)
- */
-export function prefixGenerate(l: number): number[][] {
-  if (l !== 1) {
-    const a = prefixGenerate(l - 1);
-    const b = [...a]; // clone deep
-    for (let i = 0; i < a.length; ++i) {
-      a[i].push(l - 1);
-      b.push(a[i]);
-    }
-    b.push([l - 1]);
-    return b;
-  } else {
-    return [[0]];
-  }
-}
-
 /** Add two prefixes. */
 export function prefixAdd(pf1: number[], pf2: number[]): number[] {
   if (pf1.length === 0) {
