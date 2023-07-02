@@ -1,15 +1,9 @@
 name: test
 
 on:
-  pull_request:
-    types:
-      - opened
-    branches:
-      - dev
   push:
     branches:
       - main
-      - dev
 
 jobs:
   test:

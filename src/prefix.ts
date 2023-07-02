@@ -51,7 +51,7 @@ export function prefixMapToNum(pf: number[]): bigint {
 
 /** Bijective mapping from a number to a prefix. */
 export function prefixMapFromNum(n: bigint): number[] {
-  const ans = [];
+  const ans: number[] = [];
   for (let bitPos = 0; n > 0; bitPos++) {
     if ((n & 1n) === 1n) {
       ans.push(bitPos);
