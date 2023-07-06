@@ -1,5 +1,5 @@
 import {prefixIterate} from './prefix';
-import {BTON, ISPOW2, NTOP, PTON} from './util';
+import {fromBinary, ISPOW2, toPath, fromPath} from './util';
 
 /**
  * Finds the nature of a path.
@@ -10,7 +10,7 @@ import {BTON, ISPOW2, NTOP, PTON} from './util';
  * @returns nature
  */
 export function piptreeFindNature(p: boolean[], pf: number[], rpf: number): boolean {
-  const n: bigint = PTON(p);
+  const n: bigint = fromPath(p);
   const iter_res: bigint = prefixIterate(n, pf.concat(rpf + 1));
   return (iter_res & 1n) === 0n;
 }
@@ -29,7 +29,7 @@ export function piptreeFindNature(p: boolean[], pf: number[], rpf: number): bool
  */
 export function piptreeGetRootDirections(p: boolean[]): boolean[] {
   const ans: boolean[] = [];
-  let i: bigint = BTON(p);
+  let i: bigint = fromBinary(p);
   while (i > 1n) {
     if ((i & 1n) === 0n) {
       i = i >> 1n;
@@ -53,10 +53,10 @@ export function piptreePrefixFind(input: bigint | boolean[]): number[] {
   let p: boolean[], n: bigint;
   if (typeof input === 'bigint') {
     n = input;
-    p = NTOP(n);
+    p = toPath(n);
   } else {
     p = input;
-    n = PTON(p);
+    n = fromPath(p);
   }
 
   // edge case: power of two

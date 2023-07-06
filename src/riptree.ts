@@ -1,5 +1,5 @@
 import {prefixFind} from './prefix';
-import {ISPOW2, PTON, NTOP} from './util';
+import {ISPOW2, fromPath, toPath} from './util';
 
 /**
  * Finds the next number that resides at the path of `n`.
@@ -24,10 +24,10 @@ export function riptreePrefixFind(input: bigint | boolean[]): number[] {
   let p: boolean[], n: bigint;
   if (typeof input === 'bigint') {
     n = input;
-    p = NTOP(n);
+    p = toPath(n);
   } else {
     p = input;
-    n = PTON(p);
+    n = fromPath(p);
   }
 
   // edge case: power of two

@@ -1,3 +1,7 @@
-import {NTOP, PTON, NTOB, BTON, ISPOW2} from '../src';
+import {toPath, fromPath, toBinary, fromBinary, ISPOW2} from '../src';
 
-describe('utility', () => {});
+describe('utilities', () => {
+  it('should do path conversions', () => {});
+  it('should do binary conversions', () => {});
+  it('should check power of 2 correctly', () => {});
+});

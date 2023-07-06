@@ -1,8 +1,8 @@
 import {prefixAdd, prefixIterate} from './prefix';
-import {NTOP} from './util';
+import {toPath} from './util';
 
 export function iterativePathExtension(n: bigint, prefix_finder: (p: boolean[]) => number[]): number[] {
-  const p: boolean[] = NTOP(n);
+  const p: boolean[] = toPath(n);
   let pf: number[] = prefix_finder(p);
   while (prefixIterate(n, pf) !== 1n) {
     p.push(true);
