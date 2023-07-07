@@ -1,7 +1,7 @@
 {
   "name": "collatz-prefixes",
   "description": "Collatz Prefixes, a pattern among hailstone numbers",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "erhant",
   "license": "MIT",
   "repository": "https://github.com/collatz-prefixes/collatz-prefixes-typescript.git",
