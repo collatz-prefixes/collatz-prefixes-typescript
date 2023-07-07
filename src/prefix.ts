@@ -65,6 +65,8 @@ export function prefixMapFromNum(n: bigint): number[] {
 export function prefixAdd(pf1: number[], pf2: number[]): number[] {
   if (pf1.length === 0) {
     return pf2;
+  } else if (pf2.length === 0) {
+    return pf1;
   } else {
     const pf1last = pf1.pop()!; // ! to show it cant be null
     pf2 = pf2.map(v => v + pf1last);

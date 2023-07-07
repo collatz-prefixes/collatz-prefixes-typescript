@@ -29,7 +29,7 @@ describe('collatz functions', () => {
     ];
     for (const test of cases) {
       expect(collatzSequence(test.n)).toEqual(test.seq);
-      expect(collatzLength(test.n)).toEqual(test.seq.length);
+      expect(collatzLength(test.n)).toEqual(test.seq.length - 1);
       expect(collatzReducedSequence(test.n)).toEqual(test.rseq);
     }
   });

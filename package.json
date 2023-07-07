@@ -1,7 +1,9 @@
 {
   "name": "collatz-prefixes",
+  "description": "Collatz Prefixes, a pattern among hailstone numbers",
   "version": "0.1.1",
-  "description": "TypeScript implementation of Collatz Prefixes",
+  "author": "erhant",
+  "license": "MIT",
   "repository": "https://github.com/collatz-prefixes/collatz-prefixes-typescript.git",
   "homepage": "https://github.com/collatz-prefixes/collatz-prefixes-typescript#readme",
   "engines": {
@@ -30,13 +32,9 @@
     "collatz",
     "mathematics"
   ],
-  "author": "erhant",
-  "license": "MIT",
   "devDependencies": {
-    "@babel/preset-env": "^7.20.2",
     "@types/jest": "^29.5.0",
     "@types/node": "^14.11.2",
-    "babel-jest": "^29.5.0",
     "gts": "^3.1.1",
     "jest": "^29.5.0",
     "prettier": "^2.3.2",
