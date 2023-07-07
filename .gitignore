@@ -4,3 +4,4 @@ dist
 docs
 .DS_Store
 coverage
+.parcel-cache
