@@ -1,17 +1,14 @@
-import {collatz_ECF} from './collatz';
+import {collatzECF} from './collatz';
 
 /**
  * Returns the prefix of two numbers.
+ *
  * The prefix can be thought of as common prefix of the ECFs.
  * As an example, ECF(3) = [0, 1, 5] and ECF(7) = [0, 1, 2, 4, 7, 11].
  * The common prefix here is [0, 1], thus prefix(3,7) = prefix(7,3) = [0, 1].
-
- * @param n number 1
- * @param m number 2
- * @returns prefix
  */
-export function prefix_find(n: bigint, m: bigint): number[] {
-  if (n === m) return collatz_ECF(n);
+export function prefixFind(n: bigint, m: bigint): number[] {
+  if (n === m) return collatzECF(n);
   const ans: number[] = [];
   let twos = 0;
   // eslint-disable-next-line no-constant-condition
@@ -33,14 +30,11 @@ export function prefix_find(n: bigint, m: bigint): number[] {
 
 /**
  * Iterates a number through a prefix.
+ *
  * If the prefix is equal to ECF of the number,
  * the result is expected to be 1.
- *
- * @param n number
- * @param pf prefix
- * @returns result of iterating the number over prefix
  */
-export function prefix_iter(n: bigint, pf: number[]): bigint {
+export function prefixIterate(n: bigint, pf: number[]): bigint {
   if (pf.length === 0) return n;
   n = n / 2n ** BigInt(pf[0]);
   for (let i = 1; i < pf.length; ++i) {
@@ -50,55 +44,29 @@ export function prefix_iter(n: bigint, pf: number[]): bigint {
   return n;
 }
 
-/**
- * Returns the ID of the prefix.
- * Every prefix is unique with respect to their ID.
- * The numbers in the prefix actually tell you which bits to to write 1 in the binary representation.
- *
- * @param pf prefix
- * @returns prefix ID
- */
-export function prefix_map_to_num(pf: number[]): bigint {
-  if (pf.length === 0) return 0n;
-  let ans = 0n;
-  pf.forEach(p => {
-    ans += 2n ** BigInt(p);
-  });
+/** Bijective mapping from a prefix to a number. */
+export function prefixMapToNum(pf: number[]): bigint {
+  return pf.map(BigInt).reduce((acc, p) => acc + 2n ** p, 0n);
+}
+
+/** Bijective mapping from a number to a prefix. */
+export function prefixMapFromNum(n: bigint): number[] {
+  const ans: number[] = [];
+  for (let bitPos = 0; n > 0; bitPos++) {
+    if ((n & 1n) === 1n) {
+      ans.push(bitPos);
+    }
+    n >>= 1n;
+  }
   return ans;
 }
 
-/**
- * Generate possible prefixes that appear for paths up to the given length.
- *
- * In other words, prefix_generate(length) = all the prefixes that appear in PIPTree(length)
- *
- * @param l maximum length of a prefix array
- * @returns list of prefixes
- */
-export function prefix_generate(l: number): number[][] {
-  if (l !== 1) {
-    const a = prefix_generate(l - 1);
-    const b = [...a]; // or cloneDeep(a) by lodash
-    for (let i = 0; i < a.length; ++i) {
-      a[i].push(l - 1);
-      b.push(a[i]);
-    }
-    b.push([l - 1]);
-    return b;
-  } else {
-    return [[0]];
-  }
-}
-
-/**
- * Attach two prefixes together.
- * @param pf1 first prefix
- * @param pf2 second prefix
- * @returns prefix
- */
-export function prefix_add(pf1: number[], pf2: number[]): number[] {
+/** Add two prefixes. */
+export function prefixAdd(pf1: number[], pf2: number[]): number[] {
   if (pf1.length === 0) {
     return pf2;
+  } else if (pf2.length === 0) {
+    return pf1;
   } else {
     const pf1last = pf1.pop()!; // ! to show it cant be null
     pf2 = pf2.map(v => v + pf1last);

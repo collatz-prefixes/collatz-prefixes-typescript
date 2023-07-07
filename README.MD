@@ -1,5 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Test Workflow](https://github.com/collatz-prefixes/collatz-prefixes-typescript/actions/workflows/test.yml/badge.svg?branch=main)
+
+<!-- ![Test Workflow](https://github.com/collatz-prefixes/collatz-prefixes-typescript/actions/workflows/test.yml/badge.svg?branch=main) -->
+
 [![NPM Version](https://img.shields.io/npm/v/collatz-prefixes?logo=npm)](https://www.npmjs.com/package/collatz-prefixes)
 
 # Collatz Prefixes
@@ -25,4 +27,8 @@ import * from 'collatz-prefixes'
 
 ## Testing
 
-Clone the repository, and then `yarn test`.
+You can run tests via:
+
+```sh
+yarn test
+```

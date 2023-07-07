@@ -1,5 +1,5 @@
-import {prefix_iter} from './prefix';
-import {BTON, ISPOW2, NTOP, PTON} from './util';
+import {prefixIterate} from './prefix';
+import {fromBinary, ISPOW2, toPath, fromPath} from './util';
 
 /**
  * Finds the nature of a path.
@@ -9,11 +9,10 @@ import {BTON, ISPOW2, NTOP, PTON} from './util';
  * @param rpf root prefix
  * @returns nature
  */
-export function piptree_find_nature(p: boolean[], pf: number[], rpf: number): boolean {
-  const n: bigint = PTON(p);
-  const iter_res: bigint = prefix_iter(n, pf.concat(rpf + 1));
-  if ((iter_res & 1n) === 0n) return true;
-  else return false;
+export function piptreeFindNature(p: boolean[], pf: number[], rpf: number): boolean {
+  const n: bigint = fromPath(p);
+  const iter_res: bigint = prefixIterate(n, pf.concat(rpf + 1));
+  return (iter_res & 1n) === 0n;
 }
 
 /**
@@ -28,9 +27,9 @@ export function piptree_find_nature(p: boolean[], pf: number[], rpf: number): bo
  * @param p path
  * @returns list of directions
  */
-export function piptree_get_root_directions(p: boolean[]): boolean[] {
+export function piptreeGetRootDirections(p: boolean[]): boolean[] {
   const ans: boolean[] = [];
-  let i: bigint = BTON(p);
+  let i: bigint = fromBinary(p);
   while (i > 1n) {
     if ((i & 1n) === 0n) {
       i = i >> 1n;
@@ -49,15 +48,15 @@ export function piptree_get_root_directions(p: boolean[]): boolean[] {
  * @param input an integer or a path
  * @returns prefix
  */
-export function piptree_prefix_find(input: bigint | boolean[]): number[] {
+export function piptreePrefixFind(input: bigint | boolean[]): number[] {
   // typechecking and assigning
   let p: boolean[], n: bigint;
   if (typeof input === 'bigint') {
     n = input;
-    p = NTOP(n);
+    p = toPath(n);
   } else {
     p = input;
-    n = PTON(p);
+    n = fromPath(p);
   }
 
   // edge case: power of two
@@ -71,17 +70,16 @@ export function piptree_prefix_find(input: bigint | boolean[]): number[] {
   }
 
   // find directions from root to p
-  const dir: boolean[] = piptree_get_root_directions(p);
-
-  // calculate the root number
-  const r: bigint = 1n << BigInt(p.length - 1);
+  const dir: boolean[] = piptreeGetRootDirections(p);
 
   // calculate the root prefix
   const rpf: number = p.length - 1;
 
+  // calculate the root number
+  const r: bigint = 1n << BigInt(rpf);
+
   // calculate the root path [0, 0, ..., 0, 1]
-  let rp: boolean[] = [...p];
-  rp = rp.map(() => false);
+  const rp = Array.from({length: p.length}).fill(false);
   rp[rp.length - 1] = true;
 
   // start from the root and work your way to the target
@@ -91,30 +89,34 @@ export function piptree_prefix_find(input: bigint | boolean[]): number[] {
 
   dir.forEach(d => {
     // find nature of current node
-    const nat: boolean = piptree_find_nature(cur_p, cur_pf, rpf);
+    const nat: boolean = piptreeFindNature(cur_p, cur_pf, rpf);
 
     // minus 1 everything in the prefix
     cur_pf = cur_pf.map(x => x - 1);
 
-    if (d === false) {
-      // if GOOD and LEFT, append root prefix
-      if (nat === true) {
-        cur_pf.push(rpf);
-      }
-      // div 2 and plus root
-      cur_n = (cur_n >> 1n) + r;
-      // go to the left child
-      cur_p.push(false);
-      cur_p = cur_p.slice(1);
-    } else {
+    if (d) {
       // if BAD and RIGHT, append root prefix
       if (nat === false) {
         cur_pf.push(rpf);
       }
+
       // div 2
       cur_n = cur_n >> 1n;
+
       // go to the right child
       cur_p.push(true);
+      cur_p = cur_p.slice(1);
+    } else {
+      // if GOOD and LEFT, append root prefix
+      if (nat === true) {
+        cur_pf.push(rpf);
+      }
+
+      // div 2 and plus root
+      cur_n = (cur_n >> 1n) + r;
+
+      // go to the left child
+      cur_p.push(false);
       cur_p = cur_p.slice(1);
     }
   });

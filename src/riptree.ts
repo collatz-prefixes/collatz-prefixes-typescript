@@ -1,40 +1,12 @@
-import {prefix_find} from './prefix';
-import {ISPOW2, PTON, NTOP} from './util';
-
-/**
- * Generate possible paths up to the given length (inclusive)
- * @param len length of the path
- * @returns list of paths
- */
-export function path_generate(len: number): boolean[][] {
-  if (len !== 1) {
-    const a: boolean[][] = path_generate(len - 1);
-    for (let i = 0; i < a.length; ++i) {
-      if (a[i].length === len - 1) {
-        const x: boolean[] = JSON.parse(JSON.stringify(a[i]));
-        const y: boolean[] = JSON.parse(JSON.stringify(a[i]));
-        x.push(false);
-        y.push(true);
-        a.push(x);
-        a.push(y);
-      }
-    }
-    return a;
-  } else {
-    return [[false], [true]];
-  }
-}
+import {prefixFind} from './prefix';
+import {ISPOW2, fromPath, toPath} from './util';
 
 /**
  * Finds the next number that resides at the path of `n`.
  *
  * The path is also given, as `n` can be in different paths (see path extension)
-
- * @param n number
- * @param p path
- * @returns next number at the path
  */
-export function riptree_next_in_path(n: bigint, p: boolean[]): bigint {
+export function riptreeNextInPath(n: bigint, p: boolean[]): bigint {
   return n + 2n ** BigInt(p.length);
 }
 
@@ -46,19 +18,16 @@ export function riptree_next_in_path(n: bigint, p: boolean[]): bigint {
  *
  * Note that sometimes the prefix of one number might fall short because the other one reached 1.
  * However, we can extend such cases by looping 1 -> 1 and extending the respectiveECF.
- *
- * @param input an integer or a path
- * @returns prefix
  */
-export function riptree_prefix_find(input: bigint | boolean[]): number[] {
+export function riptreePrefixFind(input: bigint | boolean[]): number[] {
   // typechecking and assigning
   let p: boolean[], n: bigint;
   if (typeof input === 'bigint') {
     n = input;
-    p = NTOP(n);
+    p = toPath(n);
   } else {
     p = input;
-    n = PTON(p);
+    n = fromPath(p);
   }
 
   // edge case: power of two
@@ -69,7 +38,7 @@ export function riptree_prefix_find(input: bigint | boolean[]): number[] {
       ans++;
     }
     return [ans];
+  } else {
+    return prefixFind(n, riptreeNextInPath(n, p));
   }
-
-  return prefix_find(n, riptree_next_in_path(n, p));
 }
