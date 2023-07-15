@@ -1,7 +1,7 @@
 {
   "name": "collatz-prefixes",
   "description": "Collatz Prefixes, a pattern among hailstone numbers",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "erhant",
   "license": "MIT",
   "repository": "https://github.com/collatz-prefixes/collatz-prefixes-typescript.git",
@@ -10,10 +10,28 @@
     "node": ">=10.4.0"
   },
   "type": "module",
-  "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
-  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "cjs": "dist/index.cjs",
+  "mjs": "dist/index.mjs",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.mjs"
+  },
+  "targets": {
+    "cjs": {
+      "outputFormat": "commonjs",
+      "isLibrary": true,
+      "context": "node"
+    },
+    "mjs": {
+      "outputFormat": "esmodule",
+      "isLibrary": true,
+      "context": "node"
+    }
+  },
   "files": [
     "dist",
     "LICENSE",
