@@ -1,4 +1,4 @@
-import {toPath, riptreePrefixFind, prefixIterate, riptreeNextInPath} from '../src';
+import {util, riptree, prefix} from '../src';
 
 describe('recursive index-parity tree', () => {
   it('should find prefix', () => {
@@ -14,10 +14,10 @@ describe('recursive index-parity tree', () => {
       {n: 322n, pf: [1, 3, 5, 6, 8]},
     ];
     for (const test of cases) {
-      const pf = riptreePrefixFind(test.n);
+      const pf = riptree.prefixFind(test.n);
       expect(pf).toEqual(test.pf);
       // should be odd
-      expect(prefixIterate(test.n, pf) % 1n).toEqual(0n);
+      expect(prefix.iterate(test.n, pf) % 1n).toEqual(0n);
     }
   });
 
@@ -30,7 +30,7 @@ describe('recursive index-parity tree', () => {
       {n: 7n, k: 15n},
     ];
     for (const test of cases) {
-      expect(riptreeNextInPath(test.n, toPath(test.n))).toEqual(test.k);
+      expect(riptree.nextInPath(test.n, util.toPath(test.n))).toEqual(test.k);
     }
   });
 });

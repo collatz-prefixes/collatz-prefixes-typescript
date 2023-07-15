@@ -1,4 +1,4 @@
-import {collatzECF, prefixAdd, prefixFind, prefixIterate, prefixMapFromNum, prefixMapToNum} from '../src';
+import {collatz, prefix} from '../src';
 
 // Find Prefix by simply comparing the ECFs
 function prefixBrute(a: number[], b: number[]): number[] {
@@ -24,14 +24,14 @@ describe('prefix calculations', () => {
       {n: 27n, m: 37n},
     ];
     for (const test of cases) {
-      const ecfN = collatzECF(test.n);
-      const ecfM = collatzECF(test.m);
+      const ecfN = collatz.ecf(test.n);
+      const ecfM = collatz.ecf(test.m);
       const pf = prefixBrute(ecfN, ecfM);
 
-      expect(prefixFind(test.n, test.m)).toEqual(pf);
-      expect(prefixFind(test.m, test.n)).toEqual(pf);
-      expect(prefixIterate(test.n, ecfN)).toEqual(1n);
-      expect(prefixIterate(test.m, ecfM)).toEqual(1n);
+      expect(prefix.find(test.n, test.m)).toEqual(pf);
+      expect(prefix.find(test.m, test.n)).toEqual(pf);
+      expect(prefix.iterate(test.n, ecfN)).toEqual(1n);
+      expect(prefix.iterate(test.m, ecfM)).toEqual(1n);
     }
   });
 
@@ -44,7 +44,7 @@ describe('prefix calculations', () => {
       {pf1: [0, 1, 5], pf2: [0, 1, 3], result: [0, 1, 5, 6, 8]},
     ];
     for (const test of cases) {
-      expect(prefixAdd(test.pf1, test.pf2)).toEqual(test.result);
+      expect(prefix.add(test.pf1, test.pf2)).toEqual(test.result);
     }
   });
 
@@ -58,8 +58,8 @@ describe('prefix calculations', () => {
       {n: 190n, pf: [1, 2, 3, 4, 5, 7]},
     ];
     for (const test of cases) {
-      expect(prefixMapToNum(test.pf)).toEqual(test.n);
-      expect(prefixMapFromNum(test.n)).toEqual(test.pf);
+      expect(prefix.mapToNum(test.pf)).toEqual(test.n);
+      expect(prefix.mapFromNum(test.n)).toEqual(test.pf);
     }
   });
 });

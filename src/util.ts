@@ -57,7 +57,7 @@ export function toBinary(n: bigint): boolean[] {
  * @param n number
  * @returns `true` if number is a power of two
  */
-export function ISPOW2(n: bigint): boolean {
+export function isPower2(n: bigint): boolean {
   if (n === 0n) {
     return true;
   } else {

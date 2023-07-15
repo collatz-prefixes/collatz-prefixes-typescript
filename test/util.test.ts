@@ -1,4 +1,4 @@
-import {toPath, fromPath, toBinary, fromBinary, ISPOW2} from '../src';
+import {util} from '../src';
 
 describe('utilities', () => {
   it('should do path conversions', () => {
@@ -15,8 +15,8 @@ describe('utilities', () => {
       {n: 12n, p: [false, false, true, false]},
     ];
     for (const test of cases) {
-      expect(toPath(test.n)).toEqual(test.p);
-      expect(fromPath(test.p)).toEqual(test.n);
+      expect(util.toPath(test.n)).toEqual(test.p);
+      expect(util.fromPath(test.p)).toEqual(test.n);
     }
   });
 
@@ -28,8 +28,8 @@ describe('utilities', () => {
       {n: 15n, b: [true, true, true, true]},
     ];
     for (const test of cases) {
-      expect(toBinary(test.n)).toEqual(test.b);
-      expect(fromBinary(test.b)).toEqual(test.n);
+      expect(util.toBinary(test.n)).toEqual(test.b);
+      expect(util.fromBinary(test.b)).toEqual(test.n);
     }
   });
 
@@ -41,8 +41,8 @@ describe('utilities', () => {
       {yes: 16n, no: 19n},
     ];
     for (const test of cases) {
-      expect(ISPOW2(test.yes)).toBeTruthy;
-      expect(ISPOW2(test.no)).toBeFalsy;
+      expect(util.isPower2(test.yes)).toBeTruthy;
+      expect(util.isPower2(test.no)).toBeFalsy;
     }
   });
 });

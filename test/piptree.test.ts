@@ -1,4 +1,4 @@
-import {piptreePrefixFind, prefixIterate} from '../src';
+import {piptree, prefix} from '../src';
 
 describe('path-indexed prefix tree', () => {
   it('should find prefix', () => {
@@ -14,10 +14,10 @@ describe('path-indexed prefix tree', () => {
       {n: 322n, pf: [1, 3, 5, 6, 8]},
     ];
     for (const test of cases) {
-      const pf = piptreePrefixFind(test.n);
+      const pf = piptree.prefixFind(test.n);
       expect(pf).toEqual(test.pf);
       // should be even
-      expect(prefixIterate(test.n, pf) % 1n).toEqual(0n);
+      expect(prefix.iterate(test.n, pf) % 1n).toEqual(0n);
     }
   });
 });

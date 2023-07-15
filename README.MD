@@ -8,6 +8,8 @@
 
 ## Installation
 
+All functions are exposed via a zero-dependency package.
+
 ```bash
 # yarn
 yarn add collatz-prefixes

@@ -1,4 +1,4 @@
-import {collatzECF} from './collatz';
+import {ecf} from './collatz';
 
 /**
  * Returns the prefix of two numbers.
@@ -7,8 +7,8 @@ import {collatzECF} from './collatz';
  * As an example, ECF(3) = [0, 1, 5] and ECF(7) = [0, 1, 2, 4, 7, 11].
  * The common prefix here is [0, 1], thus prefix(3,7) = prefix(7,3) = [0, 1].
  */
-export function prefixFind(n: bigint, m: bigint): number[] {
-  if (n === m) return collatzECF(n);
+export function find(n: bigint, m: bigint): number[] {
+  if (n === m) return ecf(n);
   const ans: number[] = [];
   let twos = 0;
   // eslint-disable-next-line no-constant-condition
@@ -34,7 +34,7 @@ export function prefixFind(n: bigint, m: bigint): number[] {
  * If the prefix is equal to ECF of the number,
  * the result is expected to be 1.
  */
-export function prefixIterate(n: bigint, pf: number[]): bigint {
+export function iterate(n: bigint, pf: number[]): bigint {
   if (pf.length === 0) return n;
   n = n / 2n ** BigInt(pf[0]);
   for (let i = 1; i < pf.length; ++i) {
@@ -45,12 +45,12 @@ export function prefixIterate(n: bigint, pf: number[]): bigint {
 }
 
 /** Bijective mapping from a prefix to a number. */
-export function prefixMapToNum(pf: number[]): bigint {
+export function mapToNum(pf: number[]): bigint {
   return pf.map(BigInt).reduce((acc, p) => acc + 2n ** p, 0n);
 }
 
 /** Bijective mapping from a number to a prefix. */
-export function prefixMapFromNum(n: bigint): number[] {
+export function mapFromNum(n: bigint): number[] {
   const ans: number[] = [];
   for (let bitPos = 0; n > 0; bitPos++) {
     if ((n & 1n) === 1n) {
@@ -62,7 +62,7 @@ export function prefixMapFromNum(n: bigint): number[] {
 }
 
 /** Add two prefixes. */
-export function prefixAdd(pf1: number[], pf2: number[]): number[] {
+export function add(pf1: number[], pf2: number[]): number[] {
   if (pf1.length === 0) {
     return pf2;
   } else if (pf2.length === 0) {

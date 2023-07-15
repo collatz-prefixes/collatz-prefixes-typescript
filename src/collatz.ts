@@ -1,5 +1,5 @@
 /** Collatz length is the number of iterations it takes to reach n to 1. */
-export function collatzLength(n: bigint): number {
+export function length(n: bigint): number {
   let ans = 0;
   while (n > 1n) {
     ans++;
@@ -13,7 +13,7 @@ export function collatzLength(n: bigint): number {
 }
 
 /** Collatz Sequence is the array of numbers seen during iterations until 1 is reached. */
-export function collatzSequence(n: bigint): bigint[] {
+export function sequence(n: bigint): bigint[] {
   const ans: bigint[] = [];
   while (n > 1n) {
     ans.push(n);
@@ -28,7 +28,7 @@ export function collatzSequence(n: bigint): bigint[] {
 }
 
 /** Reduced Collatz Sequence is the array of odd numbers seen during iterations until 1 is reached */
-export function collatzReducedSequence(n: bigint): bigint[] {
+export function reducedSequence(n: bigint): bigint[] {
   const ans: bigint[] = [];
   if ((n & 1n) === 0n) ans.push(n);
   while (n > 1n) {
@@ -44,7 +44,7 @@ export function collatzReducedSequence(n: bigint): bigint[] {
 }
 
 /** Find **ECF** (Exponential Canonical Form) of a number. */
-export function collatzECF(n: bigint): number[] {
+export function ecf(n: bigint): number[] {
   let twos = 0;
   const ans: number[] = [];
   while (n > 1n) {
@@ -61,7 +61,7 @@ export function collatzECF(n: bigint): number[] {
 }
 
 /** Compute a number from it's ECF. */
-export function collatzECFtoN(ecf: number[]): bigint {
+export function ecfToN(ecf: number[]): bigint {
   let ans = 1n;
   for (let i = ecf.length - 1; i > 0; --i) {
     ans = ans << BigInt(ecf[i] - ecf[i - 1]);

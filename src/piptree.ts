@@ -1,5 +1,5 @@
-import {prefixIterate} from './prefix';
-import {fromBinary, ISPOW2, toPath, fromPath} from './util';
+import {iterate} from './prefix';
+import {fromPath, fromBinary, isPower2, toPath} from './util';
 
 /**
  * Finds the nature of a path.
@@ -9,9 +9,9 @@ import {fromBinary, ISPOW2, toPath, fromPath} from './util';
  * @param rpf root prefix
  * @returns nature
  */
-export function piptreeFindNature(p: boolean[], pf: number[], rpf: number): boolean {
+export function findNature(p: boolean[], pf: number[], rpf: number): boolean {
   const n: bigint = fromPath(p);
-  const iter_res: bigint = prefixIterate(n, pf.concat(rpf + 1));
+  const iter_res: bigint = iterate(n, pf.concat(rpf + 1));
   return (iter_res & 1n) === 0n;
 }
 
@@ -27,7 +27,7 @@ export function piptreeFindNature(p: boolean[], pf: number[], rpf: number): bool
  * @param p path
  * @returns list of directions
  */
-export function piptreeGetRootDirections(p: boolean[]): boolean[] {
+export function getRootDirections(p: boolean[]): boolean[] {
   const ans: boolean[] = [];
   let i: bigint = fromBinary(p);
   while (i > 1n) {
@@ -48,7 +48,7 @@ export function piptreeGetRootDirections(p: boolean[]): boolean[] {
  * @param input an integer or a path
  * @returns prefix
  */
-export function piptreePrefixFind(input: bigint | boolean[]): number[] {
+export function prefixFind(input: bigint | boolean[]): number[] {
   // typechecking and assigning
   let p: boolean[], n: bigint;
   if (typeof input === 'bigint') {
@@ -60,7 +60,7 @@ export function piptreePrefixFind(input: bigint | boolean[]): number[] {
   }
 
   // edge case: power of two
-  if (ISPOW2(n)) {
+  if (isPower2(n)) {
     let ans = 0;
     while (n > 1n) {
       n >>= 1n;
@@ -70,7 +70,7 @@ export function piptreePrefixFind(input: bigint | boolean[]): number[] {
   }
 
   // find directions from root to p
-  const dir: boolean[] = piptreeGetRootDirections(p);
+  const dir: boolean[] = getRootDirections(p);
 
   // calculate the root prefix
   const rpf: number = p.length - 1;
@@ -89,7 +89,7 @@ export function piptreePrefixFind(input: bigint | boolean[]): number[] {
 
   dir.forEach(d => {
     // find nature of current node
-    const nat: boolean = piptreeFindNature(cur_p, cur_pf, rpf);
+    const nat: boolean = findNature(cur_p, cur_pf, rpf);
 
     // minus 1 everything in the prefix
     cur_pf = cur_pf.map(x => x - 1);
