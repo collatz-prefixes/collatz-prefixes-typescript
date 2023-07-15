@@ -1,14 +1,7 @@
 import {iterate} from './prefix';
 import {fromPath, fromBinary, isPower2, toPath} from './util';
 
-/**
- * Finds the nature of a path.
- *
- * @param p path
- * @param pf prefix
- * @param rpf root prefix
- * @returns nature
- */
+/** Finds the nature of a path. */
 export function findNature(p: boolean[], pf: number[], rpf: number): boolean {
   const n: bigint = fromPath(p);
   const iter_res: bigint = iterate(n, pf.concat(rpf + 1));
@@ -23,9 +16,6 @@ export function findNature(p: boolean[], pf: number[], rpf: number): boolean {
  *
  * NOTE: There could be a faster way to do this by just looking at the path. The number of 0s gives you the level. The direction can be read from the binary representation, [0, 1, 1] is like [R],
  * [1, 1, 1] is [R, R], [1, 0, 1] is [L, R] etc.
- *
- * @param p path
- * @returns list of directions
  */
 export function getRootDirections(p: boolean[]): boolean[] {
   const ans: boolean[] = [];
@@ -43,11 +33,7 @@ export function getRootDirections(p: boolean[]): boolean[] {
   return ans;
 }
 
-/**
- * Finds the prefix of a number using PIPTree properties.
- * @param input an integer or a path
- * @returns prefix
- */
+/** Finds the prefix of a number using PIPTree properties. */
 export function prefixFind(input: bigint | boolean[]): number[] {
   // typechecking and assigning
   let p: boolean[], n: bigint;

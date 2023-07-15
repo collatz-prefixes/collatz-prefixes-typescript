@@ -1,8 +1,4 @@
-/**
- * Finds the first number that resides at the given path.
- * @param p path
- * @returns number
- */
+/** Finds the first number that resides at the given path. */
 export function fromPath(p: boolean[]): bigint {
   p = p.map(b => !b); // flip
   p.reverse(); // reverse
@@ -11,11 +7,7 @@ export function fromPath(p: boolean[]): bigint {
   return n;
 }
 
-/**
- * Obtain the shortest path to given number.
- * @param n number
- * @returns path
- */
+/** Obtain the shortest path to given number. */
 export function toPath(n: bigint): boolean[] {
   n--; // decrement
   let p = toBinary(n); // from binary
@@ -24,11 +16,7 @@ export function toPath(n: bigint): boolean[] {
   return p;
 }
 
-/**
- * Find the number from its binary representation.
- * @param b binary representation
- * @returns number
- */
+/** Find the number from its binary representation. */
 export function fromBinary(b: boolean[]): bigint {
   let ans = 0n;
   b.forEach(isSet => {
@@ -38,11 +26,7 @@ export function fromBinary(b: boolean[]): bigint {
   return ans;
 }
 
-/**
- * Obtain the binary representation of a number
- * @param n number
- * @returns binary representation
- */
+/** Obtain the binary representation of a number. */
 export function toBinary(n: bigint): boolean[] {
   const ans: boolean[] = [];
   while (n !== 0n) {
@@ -52,11 +36,7 @@ export function toBinary(n: bigint): boolean[] {
   return ans;
 }
 
-/**
- * Find if a given number is a power of two
- * @param n number
- * @returns `true` if number is a power of two
- */
+/** Find if a given number is a power of two. */
 export function isPower2(n: bigint): boolean {
   if (n === 0n) {
     return true;
